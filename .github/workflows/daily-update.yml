@@ -17,18 +17,24 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Append daily activity entry
+      - name: Create random daily commits (1-15)
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           mkdir -p activity
-          echo "$(date -u '+%Y-%m-%d %H:%M:%S UTC') — Daily profile activity update" >> activity/activity.log
 
-      - name: Commit and push changes
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "chore: daily activity update $(date -u +%Y-%m-%d)"
-          commit_author: Devendra Kumar Sahu <72194247+Devendra190404@users.noreply.github.com>
-          commit_user_name: Devendra190404
-          commit_user_email: 72194247+Devendra190404@users.noreply.github.com
-          file_pattern: activity/activity.log
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          COMMIT_COUNT=$((RANDOM % 15 + 1))
+          DATE=$(date -u +%Y-%m-%d)
+
+          echo "Creating $COMMIT_COUNT commit(s) for $DATE"
+
+          git config user.name "Devendra190404"
+          git config user.email "72194247+Devendra190404@users.noreply.github.com"
+
+          for i in $(seq 1 "$COMMIT_COUNT"); do
+            echo "$(date -u '+%Y-%m-%d %H:%M:%S UTC') — Daily profile activity update #$i of $COMMIT_COUNT" >> activity/activity.log
+            git add activity/activity.log
+            git commit -m "chore: daily activity update $DATE ($i/$COMMIT_COUNT)"
+          done
+
+          git push "https://x-access-token:${GH_PAT}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
