@@ -3,7 +3,7 @@
 
 Software Engineer from India (IIIT Allahabad) specializing in production Python backends, ML pipelines, and scalable data systems.
 
-- 🎓 B.Tech ECE @ IIIT Allahabad | CGPA 7.7 | Hyderabad
+- 🎓 B.Tech ECE @ IIIT Allahabad | CGPA 8.4| Hyderabad
 - 💼 Analyst Intern @ HSBC | Ex-Research Intern @ DRDO & C3i Hub
 - 🏆 LeetCode Knight (1918) | Amazon HackOn Top 40 | Adobe GenSolve Top 50 | Flipkart Grid Semifinalist
 
